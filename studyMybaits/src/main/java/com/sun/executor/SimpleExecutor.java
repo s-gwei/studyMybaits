@@ -19,7 +19,6 @@ public class SimpleExecutor implements Executor{
     @Override
     public <E> List<E> query(MappedStatement ms, Object parameter) {
         System.out.println(ms.getSql().toString());
-
         List<E> ret = new ArrayList<>(); //返回结果集
         try {
             Class.forName(configuration.getJdbcDriver());

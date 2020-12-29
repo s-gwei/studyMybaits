@@ -6,6 +6,7 @@ public class JdbcDemo {
     public static void main(String[] args) throws SQLException {
         //声明Connection对象
         Connection con = null;
+        ResultSet rs = null;
         try {
             //加载驱动程序
             Class.forName("com.mysql.jdbc.Driver");
@@ -17,7 +18,7 @@ public class JdbcDemo {
             //要执行的SQL语句
             String sql = "select * from t_user";
             //3.ResultSet类，用来存放获取的结果集！！
-            ResultSet rs = statement.executeQuery(sql);
+            rs = statement.executeQuery(sql);
 
             String userName = "";
             String id = "";
@@ -38,7 +39,7 @@ public class JdbcDemo {
         }catch (Exception e) {
             e.printStackTrace();
         }finally{
-//            rs.close();
+            rs.close();
             con.close();
         }
     }

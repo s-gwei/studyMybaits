@@ -10,10 +10,12 @@ import java.util.List;
 
 public class TestMybaits {
     public static void main(String[] args) {
+        //创建SqlSessionFactory工厂，连接数据库
         SqlSessionFactory factory = new SqlSessionFactory();
+        //调用openSession，创建一次连接，SqlSession操作数据库
         SqlSession session = factory.openSession();
         System.out.println(session);
-
+        //获取mapper接口
         UserMapper mapper = session.getMapper(UserMapper.class);
 
 //        List<User> user = mapper.findUserList();
