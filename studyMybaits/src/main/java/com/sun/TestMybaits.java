@@ -19,7 +19,16 @@ public class TestMybaits {
         UserMapper mapper = session.getMapper(UserMapper.class);
 
 //        List<User> user = mapper.findUserList();
-        User user = mapper.findUserById(1);
-        System.out.println(user.toString());
+//        mapper.findUserList();
+        for(int i=0;i<10;i++){
+            User user = new User();
+            user.setUserId(i);
+            user.setUserName("张三"+i);
+            user.setSex(0);
+            user.setRole("会员");
+            mapper.insertUser(user);
+            System.out.println(user.toString());
+        }
+
     }
 }

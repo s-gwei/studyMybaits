@@ -7,7 +7,11 @@
 		    select * from t_user 
 		</select>
 
-		<select id="findUserById" resultType="com.sun.pojo.User" >
+		<select id="findUserById" resultType="com.sun.pojo.User">
 		  select * from t_user where userId=#{userId};
 		</select>
+	<insert id="insertUser"  >
+		insert into t_user (userId,userName,sex,role) values (#{userId},#{userName},#{sex},#{role});
+	</insert>
+
 </mapper>

@@ -42,6 +42,12 @@ public class DefaultSqlSession implements SqlSession{
     }
 
     @Override
+    public <T> int insert(String statement, Object parameter) {
+        MappedStatement ms = configuration.getMappedStatement().get(statement);
+        return executor.insertOrUpdate(ms,parameter);
+    }
+
+    @Override
     public <T> T getMapper(Class<T> type) {
         //通过动态代理生成了一个实现类，我们重点关注，动态代理的实现，它是一个 InvocationHandler，传入参数是 this，就是 sqlSession 的一个实例。
 //        MapperProxy mp = ;

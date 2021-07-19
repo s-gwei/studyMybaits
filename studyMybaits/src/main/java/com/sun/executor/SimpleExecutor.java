@@ -38,6 +38,7 @@ public class SimpleExecutor implements Executor{
             //处理占位符
             parametersize(preparedStatement, parameter);
             resultSet = preparedStatement.executeQuery();
+//            resultSet = preparedStatement.executeUpdate();
             handlerResultSet(resultSet, ret,ms.getResultType());
         }catch (SQLException e){
             e.printStackTrace();
@@ -52,6 +53,41 @@ public class SimpleExecutor implements Executor{
         }
 
         return ret;
+    }
+
+    @Override
+    public int insertOrUpdate(MappedStatement ms, Object parameter) {
+        try {
+            Class.forName(configuration.getJdbcDriver());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+             connection = DriverManager.getConnection(configuration.getJdbcUrl(), configuration.getJdbcUserName(), configuration.getJdbcPassword());
+            String regex = "#\\{([^}])*\\}";
+            // 将 sql 语句中的 #{userId} 替换为 ？
+            String  sql = ms.getSql().replaceAll(regex,"?");
+            preparedStatement = connection.prepareStatement(sql);
+            //处理占位符
+            parametersize(preparedStatement, parameter);
+            int i= preparedStatement.executeUpdate();
+//            handlerResultSet(resultSet, ret,ms.getResultType());
+            return i;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            try {
+                resultSet.close();
+                preparedStatement.close();
+                connection.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return 0;
     }
 
 

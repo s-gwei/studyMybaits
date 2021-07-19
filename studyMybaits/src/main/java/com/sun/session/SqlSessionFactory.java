@@ -67,7 +67,7 @@ public class SqlSessionFactory {
         //通过read方法读取一个文件转换成Document 对象
         Document document = null;
         try {
-            document = reader.read(file);
+             document = reader.read(file);
         } catch (DocumentException e) {
             e.printStackTrace();
         }
@@ -91,7 +91,8 @@ public class SqlSessionFactory {
         for(Element ele:all){
             MappedStatement mappedStatement = new MappedStatement();
             String id = ele.attribute("id").getData().toString();
-            String resultMap = ele.attribute("resultType").getData().toString();
+            String resultMap = ele.attribute("resultType") == null
+                    ? "":ele.attribute("resultType").getData().toString();
             String sql = ele.getData().toString();
 
             mappedStatement.setSourceId(namespace+"."+id);

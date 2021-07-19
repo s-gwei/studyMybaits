@@ -18,8 +18,11 @@ public class MapperProxy implements InvocationHandler {
         System.out.println(method.getDeclaringClass().getName()+"."+method.getName());
         //最终还是将执行方法转给 sqlSession，因为 sqlSession 里面封装了 Executor
         //根据调用方法的类名和方法名以及参数，传给 sqlSession 对应的方法
+        System.out.println(method.getReturnType().getName());
         if(Collection.class.isAssignableFrom(method.getReturnType())){
             return sqlSession.selectList(method.getDeclaringClass().getName()+"."+method.getName(),args==null?null:args[0]);
+        }else if("insertUser".equals(method.getName())){
+            return sqlSession.insert(method.getDeclaringClass().getName()+"."+method.getName(),args==null?null:args[0]);
         }else{
             return sqlSession.selectOne(method.getDeclaringClass().getName()+"."+method.getName(),args==null?null:args[0]);
         }

@@ -14,4 +14,6 @@ public interface Executor {
      * @return
      */
     <E> List<E> query(MappedStatement ms, Object parameter);
+
+    int insertOrUpdate(MappedStatement statement, Object parameter);
 }

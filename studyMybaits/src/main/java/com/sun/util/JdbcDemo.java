@@ -16,9 +16,13 @@ public class JdbcDemo {
             //使用 connection 对象创建statement 或者 PreparedStatement 类对象，用来执行SQL语句
             Statement statement = con.createStatement();
             //要执行的SQL语句
-            String sql = "select * from t_user";
+            for(int i=0;i<10;i++){
+                String sql = "insert into t_user (userId,userName,sex,role) values("+i+","+"张三"+",0“,会员”)";
+                int j= statement.executeUpdate(sql);
+            }
+
             //3.ResultSet类，用来存放获取的结果集！！
-            rs = statement.executeQuery(sql);
+
 
             String userName = "";
             String id = "";
